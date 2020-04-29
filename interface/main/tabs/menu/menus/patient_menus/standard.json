@@ -7,7 +7,7 @@
         "pid":"false",
         "children": [],
         "requirement": 0
-    },	
+    },
 	{
         "label": "History",
         "menu_id": "history",

@@ -478,6 +478,14 @@ function getInsuranceDataByDate(
     return sqlQuery($sql, array($pid,$date,$type));
 }
 
+function getWrtcData($pid, $given = "*")
+{
+    $sql = "select $given from wrtc_patient_attendees as patients " .
+        "left join user_wrtc as rooms on patients.room_id = rooms.room_id " .
+        "left join users as u on rooms.user_id=u.id where patients.pid = ? ";
+    return sqlGetAssoc($sql, array($pid));
+}
+
 // To prevent sql injection on this function, if a variable is used for $given parameter, then
 // it needs to be escaped via whitelisting prior to using this function.
 function getEmployerData($pid, $given = "*")
@@ -1872,13 +1880,13 @@ function getEffectiveInsurances($patient_id, $encdate)
 function getAllinsurances($pid)
 {
     $insarr = array();
-    $sql = "SELECT a.type, a.provider, a.plan_name, a.policy_number, a.group_number, 
-           a.subscriber_lname, a.subscriber_fname, a.subscriber_relationship, a.subscriber_employer, 
-		   b.name, c.line1, c.line2, c.city, c.state, c.zip 
+    $sql = "SELECT a.type, a.provider, a.plan_name, a.policy_number, a.group_number,
+           a.subscriber_lname, a.subscriber_fname, a.subscriber_relationship, a.subscriber_employer,
+		   b.name, c.line1, c.line2, c.city, c.state, c.zip
            FROM `insurance_data` AS a
            RIGHT JOIN insurance_companies AS b
            ON a.provider = b.id
-           RIGHT JOIN addresses AS c 
+           RIGHT JOIN addresses AS c
            ON a.provider = c.foreign_id
            WHERE a.pid = ? ";
     $inco = sqlStatement($sql, array($pid));
@@ -1972,7 +1980,7 @@ function is_patient_deceased($pid, $date = '')
   // Query for deceased status (if person is deceased gets days_deceased and date_deceased)
     $results = sqlQuery("SELECT DATEDIFF(?,`deceased_date`) AS `days_deceased`, `deceased_date` AS `date_deceased` " .
                       "FROM `patient_data` " .
-                      "WHERE `pid` = ? AND `deceased_date` IS NOT NULL AND `deceased_date` != '0000-00-00 00:00:00' AND 
+                      "WHERE `pid` = ? AND `deceased_date` IS NOT NULL AND `deceased_date` != '0000-00-00 00:00:00' AND
                       `deceased_date` <= ?", array($date,$pid,$date));
 
     if (empty($results)) {

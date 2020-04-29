@@ -78,7 +78,7 @@ $loading = "<i class='fa fa-refresh fa-2x fa-spin'></i>";
             text-align: justify;
         }
     }
-    
+
 </style>
 <script language="JavaScript">
 
@@ -256,8 +256,8 @@ $loading = "<i class='fa fa-refresh fa-2x fa-spin'></i>";
                 $("#pt_table_length").addClass ("hidden");
                 $("#show_hide").addClass ("hidden");
                 $("#search_hide").addClass ("hidden");
-                
-                
+
+
             } else {
                 $("#pt_table_filter").removeClass ("hidden");
                 $("#pt_table_length").removeClass ("hidden");
@@ -266,7 +266,7 @@ $loading = "<i class='fa fa-refresh fa-2x fa-spin'></i>";
             }
         });
     </script>
-    
+
     <script>
         document.addEventListener('touchstart', {});
     </script>

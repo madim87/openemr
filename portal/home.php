@@ -36,6 +36,7 @@ if (isset($_SESSION['whereto'])) {
 
  $user = isset($_SESSION['sessionUser']) ? $_SESSION['sessionUser'] : 'portal user';
  $result = getPatientData($pid);
+ $rooms = sqlGetAssoc("SELECT * FROM user_wrtc WHERE user_id=?", array($authUserID));
 
  $msgs = getPortalPatientNotes($_SESSION['portal_username']);
  $msgcnt = count($msgs);
@@ -66,6 +67,7 @@ $(function () {
     });
 
     $("#medicationlist").load("./get_medications.php", {}, function () {});
+    $("#wrtcroomlist").load("./get_wrtc.php", {}, function () {});
     $("#labresults").load("./get_lab_results.php", {}, function () {});
     $("#amendmentslist").load("./get_amendments.php", {}, function () {});
     $("#problemslist").load("./get_problems.php", {}, function () {});
@@ -198,6 +200,19 @@ function editAppointment(mode,deid){
                     </div><!-- /.col -->
 
             </div><!-- /.lists -->
+            <div class="row collapse" id="clickmeeting">
+                <div class="col-sm-12">
+                    <div class="panel panel-primary">
+                        <header class="panel-heading"><?php echo xlt('Enable Meetings'); ?> </header>
+                        <div id="wrtcroomlist" class="panel-body">
+
+
+                        </div>
+
+                        <div class="panel-footer"></div>
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.clickmeeting -->
             <?php if ($GLOBALS['allow_portal_appointments']) { ?>
             <div class="row">
                 <div class="col-sm-6">

@@ -22,7 +22,7 @@
    $search_any_type = $GLOBALS['search_any_patient'];
    //$search_any_type = 'comprehensive';
    //$search_any_type = 'dual';
-   
+
 if ($search_any_type == 'dual') {
     $any_search_class = "any-search-legacy";
     $search_globals_class = "btn-globals-legacy";
